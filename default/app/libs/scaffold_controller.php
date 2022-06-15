@@ -28,14 +28,14 @@ abstract class ScaffoldController extends AdminController
      */
     public function crear()
     {
-        #var_dump(Input::post());
-        if (Input::hasPost(0)) {
+        #var_dump(Input::haspost($this->model));
+        if (Input::hasPost(0)) {#$this->model
             #Flash::error('hola');
             #var_dump($this->model);
 
             $obj = new $this->model;
             //En caso que falle la operación de guardar
-            if (!$obj->save(Input::post(0))) {
+            if (!$obj->save(Input::post())) {
                 Flash::error('Falló Operación');
                 //se hacen persistente los datos en el formulario
                 $this->{$this->model} = $obj;
@@ -65,7 +65,7 @@ abstract class ScaffoldController extends AdminController
         if (Input::hasPost(0)) {
             
             $obj = new $this->model;
-            if (!$obj->update(Input::post(0))) {
+            if (!$obj->update(Input::post())) {
                 Flash::error('Falló Operación');
                 //se hacen persistente los datos en el formulario
                 $this->{$this->model} = Input::post($this->model);
